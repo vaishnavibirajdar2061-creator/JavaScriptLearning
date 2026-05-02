@@ -1,0 +1,54 @@
+package Selenium;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Put_data_in_Excell_Shett {
+
+	public static void main(String[] args) throws IOException 
+	{
+		
+//		WebDriver driver = new ChromeDriver();
+//		driver.get("https://www.amazon.in/");
+//		
+//	List<WebElement> ele = driver.findElements(By.xpath("//select[@aria-describedby='searchDropdownDescription']"));
+//		
+	HSSFWorkbook wb = new HSSFWorkbook();
+	HSSFSheet sheet= wb.createSheet("sheet1");
+	sheet.createRow(0);
+	sheet.createRow(0).createCell(0).setCellValue("Hello");
+	sheet.createRow(0).createCell(1).setCellValue("world");
+	  
+		 
+		HSSFRow roe=sheet.createRow(1);
+		 roe.createCell(0).setCellValue("java");
+		 roe.createCell(1).setCellValue("selenium");
+		 
+		 File file = new File (System.getProperty("user.dir")+"\\src\\test.xls");
+		 FileOutputStream fos = new FileOutputStream(file);
+
+		  wb.write(fos);
+
+		 wb.close();
+		 System.out.println("Excel file created successfully!");  
+		 
+		 
+		
+		 
+		
+
+	}
+
+}

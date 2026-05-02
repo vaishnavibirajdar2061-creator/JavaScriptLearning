@@ -1,0 +1,37 @@
+package Selenium;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+public class Data_Provider_sameClass {
+
+
+	@DataProvider(name="mydata")
+	public Object[][] test()
+	{
+		Object data[][]= {{"Admin","admin123"},{"dfghj","ertyui"} ,{"Admin" ,"admin123"}};
+		return data;
+	}
+	
+	@Test(dataProvider= "mydata")
+	public void login (String un , String psw)
+	{
+
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+		
+		driver.findElement(By.name("username")).sendKeys(un);
+		driver.findElement(By.name("password")).sendKeys(psw);
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		System.out.println("tittle :"+driver.getTitle());
+		System.out.println("Url :"+ driver.getCurrentUrl());
+		System.out.println("************************************");
+	}
+
+}

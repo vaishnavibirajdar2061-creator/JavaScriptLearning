@@ -1,0 +1,29 @@
+package Java_Programme;
+
+public class Check_AmrStrong_number {
+
+	public static void main(String[] args)
+	{
+		int num = 4567;
+		int r=0 ;
+		int sum =0 ;
+		int arg = num ;
+		
+		while(num >0)
+		{
+			num = r%10 ;
+			num = num/10 ;
+			sum = ( r*r*r)+ sum ;
+		}
+
+		if(arg == sum)
+		{
+			System.out.println("Armstrong number : " + sum);
+		}
+		else
+		{
+			System.out.println("Not Armstrong :" +sum);
+		}
+	}
+
+}

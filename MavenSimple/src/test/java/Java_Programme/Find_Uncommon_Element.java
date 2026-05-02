@@ -1,0 +1,51 @@
+package Java_Programme;
+
+public class Find_Uncommon_Element {
+
+	public static void main(String[] args) 
+	{
+		int arr1[]= {1 ,2, 3,4,5,6};
+		int arr2 [] = {3,4,5,7,8,9};
+		
+		for(int a=0 ; a<arr1.length ; a++)
+		{
+			boolean found = false ;
+			
+			for(int b =0 ; b<arr2.length ; b++)
+			{
+				if(arr1[a] == arr2[b])
+				{
+					found = true;
+					break;
+				}
+			}
+			
+			if (!found)
+			{
+				System.out.print(arr1[a] + " ");
+			}
+		}
+		
+		
+		for(int a=0 ; a<arr2.length ; a++)
+		{
+			boolean found = false;
+			for(int b=0 ;b<arr1.length ; b++)
+			{
+				if(arr2[a] == arr1[b])
+				{
+					found = true ;
+					break;
+				}
+			}
+			
+			if(!found)
+			{
+				System.out.print(arr2[a] + " ");
+			}
+		}
+		
+
+	}
+
+}

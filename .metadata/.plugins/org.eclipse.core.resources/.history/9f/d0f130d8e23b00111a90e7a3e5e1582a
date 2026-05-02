@@ -1,0 +1,18 @@
+package Selenium;
+
+import java.io.FileInputStream;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+public class File_Uplod_Using_Robot {
+
+	public static void main(String[] args) 
+	{
+		
+		
+		
+		
+
+	}
+
+}

@@ -1,0 +1,54 @@
+package Selenium;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+public class File_Uplod_Using_Robot {
+
+	public static void main(String[] args) throws IOException 
+	{
+		File file = new File (System.getProperty("user.dir")+"\\src\\amazon.xls");
+		FileInputStream fos = new FileInputStream(file);
+		
+		HSSFWorkbook wb = new HSSFWorkbook(fos);
+		
+		int row=wb.getSheet("Amazon link").getPhysicalNumberOfRows();
+		int cell =wb.getSheet("Amazon link").getRow(0).getPhysicalNumberOfCells();
+		
+		Object[][] data= new Object [row][cell];
+		for(int a=0 ; a<row ; a++)
+		{
+			HSSFRow r = wb.getSheet("Amazon link").getRow(a);
+			for(int b=0 ; b<cell ; b++)
+			{
+			 HSSFCell c= r.getCell(b);
+			 
+			 if( c != null)
+			 {
+				 data[a][b]= c.toString();
+			 }
+			 else
+			 {
+				data[a][b]="";
+			 }
+			 
+			 System.out.print(data[a][b]);
+				
+			}
+			
+			System.out.println();
+			
+		}
+		
+
+		
+
+	}
+
+}

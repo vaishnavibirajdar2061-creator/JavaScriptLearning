@@ -1,0 +1,18 @@
+package Rerun_Test_using_RetryAnalyser;
+
+public class test {
+
+
+    WebDriver driver;
+
+    @Test(retryAnalyzer = RetryAnalyzer.class)
+    public void testGoogle() {
+
+        driver = new ChromeDriver();
+        driver.get("https://www.google.com/");
+
+        // Force failure for demo
+        Assert.assertEquals(driver.getTitle(), "Facebook");
+
+        driver.quit();
+}

@@ -1,0 +1,19 @@
+package Java_Programme;
+
+import java.util.UUID;
+
+public class Genarate_random_string_ {
+
+	public static void main(String[] args) 
+	{
+		
+		String res = UUID.randomUUID().toString();
+		
+		System.out.println(res);
+		
+		String tar = res.replace("-" , " ");
+		String res1 = tar.substring(0 , 6);
+
+	}
+
+}

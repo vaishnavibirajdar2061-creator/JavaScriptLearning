@@ -1,0 +1,24 @@
+package Java_Programme;
+
+public class Miss_number_inArray {
+
+	public static void main(String[] args) 
+	{
+		int arr[] = { 1,2,3,4,6,7};
+		int n = 7 ;
+		
+		
+		int sum =0 ;
+		int total = n*(n+1)/2;
+		
+		for(int a=0 ; a<arr.length ; a++)
+		{
+			sum = sum + arr[a];
+		}
+
+		
+		int miss = total - sum ;
+		System.out.println("miss number :" + miss);
+	}
+
+}

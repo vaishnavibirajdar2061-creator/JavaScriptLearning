@@ -1,0 +1,22 @@
+package Java_Programme;
+
+public class check_number_are_three_digit {
+
+	public static void main(String[] args) 
+	{
+		
+		int num = 456;
+		String s = Integer.toString(Math.abs(num));
+		
+		if(s.length()== 3)
+		{
+			System.out.println("three digit number");
+		}
+		else
+		{
+			System.out.println("not three digit number");
+		}
+
+	}
+
+}

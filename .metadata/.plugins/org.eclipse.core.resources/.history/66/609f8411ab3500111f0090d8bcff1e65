@@ -1,0 +1,10 @@
+package Java_Programme;
+
+public class Miss_number_inArray {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

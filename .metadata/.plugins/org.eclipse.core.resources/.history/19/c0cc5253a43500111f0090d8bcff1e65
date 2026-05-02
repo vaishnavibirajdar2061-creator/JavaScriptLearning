@@ -1,0 +1,10 @@
+package Java_Programme;
+
+public class Capital_letter_each_word {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

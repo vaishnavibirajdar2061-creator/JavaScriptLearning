@@ -1,0 +1,10 @@
+package Java_Programme;
+
+public class Sec_High_Low_withCondition {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

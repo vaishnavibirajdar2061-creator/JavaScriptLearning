@@ -1,0 +1,55 @@
+package Selenium;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.time.Duration;
+import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Broken_link {
+
+	public static void main(String[] args) throws IOException 
+	{
+		WebDriver driver = new ChromeDriver();
+		  driver.get("https://www.flipkart.com/");
+		  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		  driver.findElement(By.className("b3wTlE")).click();
+		  
+		  List<WebElement>ele = driver.findElements(By.tagName("a"));
+		  System.out.println("total link :"+ ele.size());
+		  for(WebElement ele1 : ele)
+		  {
+			    String link= ele1.getAttribute("href");
+			    
+			    if(link == null || link.isEmpty())
+			    {
+			    	continue ;
+			    }
+			    
+			    URL url = new URL (link);
+			    HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			    con.setRequestMethod("HEAD");
+			    con.connect();
+			    
+			 int code =   con.getResponseCode();
+			 if(code >= 400)
+			 {
+				 System.out.println("Broken Link :" + link);
+			 }
+			 else
+			 {
+				 System.out.println("valid link :" +link);
+			 }
+			    		
+			    		
+		  }
+	}
+
+}

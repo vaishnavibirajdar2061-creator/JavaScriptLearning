@@ -1,0 +1,25 @@
+package Java_Programme;
+
+public class Reverse_string_first_letter_capital {
+
+	public static void main(String[] args) 
+	{
+		
+		String name = "i love india";
+		
+		String name1[]=name.trim().split("\\s+");
+		StringBuilder cap = new StringBuilder();
+		
+	    for(String res : name1)
+	    {
+	    	
+	    		   String res1 = res.toUpperCase().substring(0, 1)+ res.substring(1);
+	    		   cap.append(res1).append(" ");
+	    	}
+	    	
+	    	System.out.println(cap);
+	    }
+
+	}
+
+}

@@ -1,0 +1,10 @@
+package Selenium;
+
+public class Data_Provide_Diff_TestusedClass {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

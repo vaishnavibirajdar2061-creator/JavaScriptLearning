@@ -1,0 +1,31 @@
+package Java_Programme;
+
+public class Descending_order_WithoutCondition {
+
+	public static void main(String[] args) 
+	{
+	 int arr[] = {2,4,3,5,6,5,443,67,98,76,54,89,6,0,76,87};
+	
+	 for(int a=0 ; a<=arr.length ; a++)
+	 {
+		 for(int b=0 ; b<arr.length-1 ; b++)
+		 {
+			 if(arr[b]< arr[b+1])
+			 {
+				 int temp = arr[b];
+				 arr[b] = arr[b+1];
+				 arr[b+1]= temp;
+			 }
+		 }
+	 }
+	 
+	 for(int res : arr)
+	 {
+		 System.out.println(res);
+	 }
+		
+	 
+
+	}
+
+}

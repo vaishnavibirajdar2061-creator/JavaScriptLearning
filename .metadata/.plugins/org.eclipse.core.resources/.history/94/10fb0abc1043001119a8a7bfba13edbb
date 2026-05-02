@@ -1,0 +1,31 @@
+package Java_Programme;
+
+public class Sec_Lowest_number_withoutCondition {
+
+	public static void main(String[] args) 
+	{
+		int arr[] = {2,4,3,5,6,5,443,67,98,76,54,89,6,0,76,87};
+		
+		int min = Integer.MIN_VALUE;
+		int smin = Integer.MIN_VALUE;
+		
+		for(int a=0 ; a<arr.length ; a++)
+		{
+			if(arr[a] > min)
+			{
+				smin = min ;
+				min = arr[a];		
+			}
+			
+			else if (arr[a] > smin && arr[a] != min)
+			{
+				smin = arr[a];
+			}
+		}
+		
+		System.out.println("min :"+min);
+		System.out.println("smin :" +smin);
+
+	}
+
+}

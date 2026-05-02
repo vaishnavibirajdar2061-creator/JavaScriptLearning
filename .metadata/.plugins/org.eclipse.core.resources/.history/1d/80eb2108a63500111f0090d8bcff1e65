@@ -1,0 +1,10 @@
+package Java_Programme;
+
+public class check_number_are_three_digit {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

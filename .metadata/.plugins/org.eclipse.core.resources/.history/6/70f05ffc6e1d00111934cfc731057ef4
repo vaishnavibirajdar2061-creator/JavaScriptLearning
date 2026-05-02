@@ -1,0 +1,10 @@
+package Java_Programme;
+
+public class Sec_Lowest_number_withoutCondition {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
