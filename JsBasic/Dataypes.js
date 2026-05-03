@@ -1,4 +1,42 @@
 
+
+
+/*
+DataType: 
+-------------------
+Data types define what type of data we declare inside variable
+
+Javascript is dynamically type means we dont required to store/define data type while
+declarating any variable
+
+Datatypes
+---------------
+1.Primitive type
+    1.number
+    2.string
+    3.boolean
+    4.undefined
+    5.null
+    Added after ES6
+    6.BigInt  NA for Automation
+    7.Symbol  NA for Automation
+
+2.Non primitive type
+    Object
+    Array
+
+    Syntax to declare variable
+    -----------------------------
+    let keyword: Any mutable data
+    const keyword: Any immutable data
+
+    let variableName=value;
+
+    typeof operator
+    ====================
+    typeof operator will help to understand what type data is stored inside variable
+
+*/
 let num = 123;
 console.log(num);
 console.log(typeof num);
@@ -145,6 +183,7 @@ console.log( typeof person);
 
 console.log("------------------Symbol type____________________");
 
+// symbol type canit be modify
 let pid = Symbol('id');
 console.log(typeof pid);
 
