@@ -1,8 +1,10 @@
-test2();
-
-//modern synatx
-let test2=function()
+let person =
 {
-console.log("Hi");
-
+    name: 'vaishu',
+    id : 101,
+    city : 'pune',
+    isActive : true
 };
+
+console.log(person);
+console.log( typeof person);
