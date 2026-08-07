@@ -1,0 +1,30 @@
+
+//import { StudentData,browserName,getData} from "./48_ModuleExport.js";
+
+//all data if you wanted to use from base file you can alise
+import * as data from "./48_ModuleExport.js"
+
+
+
+//call from data anything from file 48
+data.getData();
+console.log(data.browserName);
+
+
+//class
+const s1=new data.StudentData(201,"Siyara");
+s1.show();
+
+
+
+
+
+
+//create object of StudentData class
+/*
+const s2=new StudentData(101,"abhi");
+s2.show();
+
+console.log("BrowserName is: "+browserName);
+
+getData();*/
