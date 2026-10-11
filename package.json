@@ -1,13 +1,22 @@
 {
-  "name": "javascript_learning",
+  "name": "playwrightlearning",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "type": "commonjs",
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module"
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.1.1",
+    "@types/papaparse": "^5.5.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "papaparse": "^5.7.0",
+    "xlsx": "^0.18.5"
+  }
 }

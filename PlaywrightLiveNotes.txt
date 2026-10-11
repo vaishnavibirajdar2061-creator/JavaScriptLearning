@@ -1,0 +1,922 @@
+
+
+Playwright
+=================
+It is end to end testing framework for webUI and API testing
+
+How many ways are there to design test case
+========================================
+1.Using Playwright Test runner(recommended)
+---------------------------------
+- Playwright has inbuilt test runner
+- this runner execute test based on pw.config.ts
+
+import {test} from "@playwright/test"
+
+
+
+2.Using async function(IIFE)
+------------------------------------
+not recommended it is not based on Pw.confing.ts
+
+========================================================
+Fixtures
+================
+Fixtures like test enviornment and it supply objects/data to the test case
+
+Playwright support two types of fixtures
+--------------------------
+1.Inbuilt
+------------------------
+1.Browser(open Pw customize browser chromium/webkit/firefox)
+2.Context(for same browser creating context: incognito window)
+3.Page(defualt: open tab inside browser)
+4.Request(used to API testing)
+
+
+2.Custom
+---------------
+Framework design
+
+===================================
+Playwright commands/methods
+-----------------------------
+1.To open any application
+ page.goto("url"): Promise<Response | null>
+
+2.To get the current page title
+    page.title(): Promise<string>
+
+3.To get the currenturl of the page
+    page.url(): string
+
+Workers
+============
+Interview Answer 
+• Playwright workers are separate processes used to 
+execute test files in parallel.  
+• By default, Playwright automatically determines the 
+worker count based primarily on the number of logical 
+CPU cores available on the system, typically using about 
+half of them.  
+• This default can be overridden using the workers option 
+in playwright.config.ts or the --workers command-line 
+argument.  
+• The optimal number of workers also depends on 
+available RAM and the execution environment (local 
+machine or CI/CD).
+
+echo %NUMBER_OF_PROCESSORS%
+
+To Run playwright test
+===========================
+By deafult playwright exeutes every test case in headless mode(Without UI)
+
+1. To run all test cases from all spec file(collection of test cases: suite)
+    npx playwright test
+
+2. To run specific test 
+    npx playwright test tests/Tc001_FirstTest.spec.ts
+
+3. To run tets with UI
+    npx playwright test tests/Tc001_FirstTest.spec.ts --headed
+
+4. To run test by customizing playwright worker
+    npx playwright test tests/Tc001_FirstTest.spec.ts --headed --workers=1(sequentail executing)
+
+5. To run Playwright test through playwright UI(dashboard)
+    npx playwright test tests/Tc001_FirstTest.spec.ts --ui
+    
+6. To run test case on one browser
+npx playwright test tests/Tc001_FirstTest.spec.ts --headed --project=webkit
+
+Assertions
+===================
+-PW support inbuit assertions for validation of curent application state
+-Assertions will help you to test actual result vs expected result
+
+PW support two types of Assertion
+
+1.Hard Assertion
+-------------------
+- If assertion fail then test will stop on that line not continue remaining execution
+- hard assertion we implement in PW using expect()
+
+2.Soft Assertion
+--------------------
+- If assertion fail then test will not stop excution you will see error and test continue remaining execution
+- hard assertion we implement in PW using expect.soft()
+
+===================================================================
+18-07-2026
+================
+channel
+================
+Browser distribution channel.
+
+Use "chromium" to opt in to new headless mode.
+
+Use "chrome", "chrome-beta", "chrome-dev", "chrome-canary", "msedge", "msedge-beta", "msedge-dev", or "msedge-canary" to use branded Google Chrome and Microsoft Edge.
+
+newContext():Promise<BrowserContext>
+-------------------
+Creates a new browser context. It won't share cookies/cache with other browser contexts.
+
+newPage():Promise<Page>
+---------------
+Creates a new page in the browser context.
+
+19-07-2026
+-----------------
+Navigation Commands In PW
+===============================
+Page.reload(): await page.reload();
+This method reloads the current page, in the same way as if the user had triggered a browser refresh.
+
+Page.goForward(): await page.goForward();
+Navigates to the next page in the browser history.
+
+Page.goBack(): await page.goBack();
+Navigates to the previous page in the browser history.
+
+
+goto("url",WaitUntil?: state)
+------------------------
+When to consider operation succeeded, defaults to load. 
+Events can be either:
+'domcontentloaded' - consider operation to be finished when the DOMContentLoaded event is fired.
+'load' - consider operation to be finished when the load event is fired.
+'networkidle' - DISCOURAGED consider operation to be finished when there are no network connections for at least 500 ms. Don't use this method for testing, rely on web assertions to assess readiness instead.
+'commit' - consider operation to be finished when network response is received and the document started loading.
+
+
+
+Attributes in PW
+=================
+only: test.only(): test will run
+skip: test.skip(): test case will skip from current execution
+
+How to automate any WebElement
+=================================
+WebElement is any UI element from application
+example: inputbox,radiobutton,link,checkbox,button,dropdown,logo
+
+1.Identify element address
+2.Using PW method locate element and perform action
+
+PW identify webelement using locator
+
+What is Locator?
+---------------------
+Locator is address of webelement from webpage
+
+Playwright support 3 locator strategies
+=======================================
+1.Playwright 7 Inbuilt locators
+-----------------------------------
+page.getByRole() to locate by explicit and implicit accessibility attributes.
+page.getByText() to locate by text content.
+page.getByLabel() to locate a form control by associated label's text.
+page.getByPlaceholder() to locate an input by placeholder.
+
+page.getByAltText() to locate an element, usually image, by its text alternative.
+page.getByTitle() to locate an element by its title attribute.
+page.getByTestId() to locate an element based on its data-testid attribute (other attributes can be configured).
+
+2.Using cssSelectors
+
+3.Using Xpath
+===============================================
+Pw Methods
+============
+page.locator():Locator
+------------------
+The method returns an element locator that can be used to perform actions on this page / frame
+
+Actionable commands
+===================
+click():Click an element.
+fill():Set a value to the input field.
+clear():Clear the input field.
+check():Ensure that checkbox or radio element is checked.
+count():Returns the number of elements matching the locator.
+
+To get the visible text/html inner text of element 
+---------------------------------------------
+textContent():Returns the node.textContent
+innerText():Returns the element.innerText.(Recommended): Promise<String>
+
+
+Playwright provides autowait(30sec) for all actionable commands
+---------------------------------------------------------------
+Playwright performs a range of actionability checks on the elements before making actions to ensure these actions behave as expected. 
+It auto-waits for all the relevant checks to pass and only then performs the requested action. 
+If the required checks do not pass within the given timeout, action fails with the TimeoutError.
+
+For example, for locator.fill(), Playwright will ensure that:
+locator resolves to exactly one element
+element is Visible
+element is Stable, as in not animating or completed animation
+element Receives Events, as in not obscured by other elements
+element is Enabled
+element is editable
+
+
+
+Validation commands
+============================
+1.isVisible():Promise<boolean>:Returns whether the element is visible.
+2.isEnabled():Promise<boolean>:Returns whether the element is enabled.
+3.isEditable():Promise<boolean>:
+Returns whether the element is editable.
+ If the target element is not an <input>, <textarea>, <select>, [contenteditable] 
+and does not have a role allowing [aria-readonly], this method throws an error.
+
+
+Assertion commands
+===========================
+1.toHaveTitle(): Ensures the page has the given title.
+2.toHaveURL(): Ensures the page is navigated to the given URL.
+
+
+
+When Multiple elements matched and if you unique element to select
+then use first(), last(), nth(index)
+=========================================
+first(): Returns locator to the first matching element.
+last(): Returns locator to the last matching element.
+nth(index): Returns locator to the n-th matching element. It's zero based, nth(0) selects the first element.
+
+
+Debugging commands
+=====================
+hightlight():Highlight the corresponding element(s) on the screen. Useful for debugging
+
+
+Multiple WebElements
+=============================
+1.allInnertTexts():string[]
+-----------------------------------
+Returns an array of node.innerText values for all matching nodes.
+
+2.all():Locator[]
+--------------------
+When the locator points to a list of elements, this returns an array of locators, pointing to their respective elements.
+
+
+
+
+=================================
+Identify Elements using CssSelector
+===================================
+-CssSelector is locator to locate the webelement based on Css property of that element
+-CssSelector is faster than xpath as it can travel only in one direction
+Parent node to child node 
+-In cssSelector we dont have method support
+
+1.tagname with id
+2.tagname with attribute
+3.tagname with className
+4.tagname with id,attribute or class
+
+<input type="text" name="email" value="" placeholder="E-Mail Address" id="input-email" class="form-control">
+
+1.tagname with id
+-------------------
+Syntax:
+----------
+tagname#id
+
+example: input#input-email or #input-email   1 of 1
+
+--------------------------------------------------------------------
+2.tagname with attribute
+Syntax:
+-------------
+tagname[attribute='value']
+
+example
+-----------
+input[name='password']
+
+------------------------------------------------------------------------
+3.tagname with className
+<input type="submit" value="Login" class="btn btn-primary">
+
+class="btn btn-primary"
+       c1     c2
+
+Syntax:
+-------------
+tagname.className
+
+Example: input.btn.btn-primary     1 of 1
+
+------------------------------------------------------------------------
+4.tagname with id,attriute,className
+<input type="submit" value="Login" class="btn btn-primary">
+
+Syntax:
+------------
+input#id.className[attribute='value']
+
+Example: input.btn.btn-primary[value='Login']      1 of 1
+
+======================================
+Substring Selector(As cssSelector does not support method but with substring selectors we can identify element).
+
+*(contains)  ^(startswith) $(endswith)
+
+5.Matching substring  * (contains in java and includes in Js)
+---------------------------------------------------------------
+Syntax:
+------------
+tagname[attribute*='partial value']
+
+6.Matching prefix ^ (startswith)
+---------------------------------------
+Syntax:
+----------------
+tagname[attribute^='prefix value']
+
+7.Matching suffix $ (endswith)
+-------------------------------------
+Syntax:
+--------------
+tagname[attribute$='suffix value']
+
+Multiple WebElement match
+==================================
+Parent to child Relation/interaction
+=============================
+8. Decendent(not a direct child): add space in between tagnames those are decedent
+
+Syntax:
+ParentTagname childTagname  :direct + indirect child ele will get selected 
+
+aside a   1 of 13 as aside tag is indirect parent
+
+9. Direct child node
+
+Syntax:
+Parenttagname>childtagname   :direct child elements get selected
+
+div.list-group>a    1 of 13   div tag is direct parent
+div.list-group a    1 of 13
+
+CssSelector with indexing
+================================
+Syntax:
+-------------
+Parenttagname>childtagname:nth-child(index)
+
+
+
+===================================================================
+
+2.Using Xpath Locator
+=====================
+-Xpath is path of the element from html or xml file
+-Xpath identify elements directly from DOM(document object model)
+-Xpath support multiple methods(text(), normalize-space(),contains(),startswith())
+-Xpath support xpath Axies which is used to interact dynamic elements
+-Xapth cna travel fro parent to child and child to parent
+
+HTML DOM
+============
+<html>--------------root node
+<body>
+<input>
+<a>---------------webelement
+<div>
+<button>
+</body>
+</html>
+=============================
+Xpath Types
+==============
+1.Absolute Xpath(full xpath)
+-----------------------
+- Absolute xpath identify element from the root node<html>
+- Absolute xpath starts with '/'
+
+/html/body/div[2]/div/div/div/div[2]/div/form/div[1]/input
+
+2.Relative Xpath(partial xpath)
+-------------------------
+- Relative xpath identify element from relative attribute of element
+- Relative xpath starts with '//'
+
+//*[@id="input-email"]
+
+* means any tagname
+
+Xpath Syntax:
+==============
+//tagname[@attribute='value']
+
+========================================================
+xpath Operators
+======================
+1.and
+--------------
+syntax:
+-------------
+//tagname[@attribute='value' and @attribute='value']
+example: //input[@name='firstname' and @class='form-control']   1 of 1
+
+2.or
+-------------
+syntax:
+-------------
+//tagname[@attribute='value' or @attribute='value']
+
+
+Xpath Indexing or position()
+===================
+Syntax:
+---------------
+(xpath)[index]
+
+OR
+(xpath)[position()=index]
+
+=======================================================
+Xpath Methods
+===================
+1.text()
+-----------------
+This method identify element based on visible text 
+but this method never ignore white space before and after text
+
+syntax:
+------------
+//tagname[text()='visible text']
+
+
+2.normalize-space():Recommended
+-----------------
+This method identify element based on visible text 
+and this method ignore white space before and after text like trim() of string
+syntax:
+------------
+//tagname[normalize-space()='visible text']
+
+3.contains(): partial match of text/attribute (like includes in Js)
+----------------------------------
+Syntax:
+-------------
+//tagname[contains(@attribute,'partail value')]
+OR
+//tagname[contains(text(),'partial text')]
+
+
+4.starts-with(): prefix match 
+Syntax:
+-------------
+//tagname[starts-with(@attribute,'partail value')]
+OR
+//tagname[starts-with(text(),'partial text')]
+
+===================================================================
+Xpath Axies
+===================
+1.ancestor
+------------------
+Syntax:
+--------------
+//tagname[@attribute='value']//ancestor::ancestor tagname
+
+2.parent
+------------------
+Syntax:
+-----------------
+//tagname[@attribute='value']//parent::parent tagname
+
+
+3.Child
+------------------
+Syntax:
+-----------------
+//tagname[@attribute='value']//child::child tagname
+
+4.following
+------------------
+Syntax:
+-----------------
+//tagname[@attribute='value']//following::following tagname
+
+5.following-sibling
+------------------
+Syntax:
+-----------------
+//tagname[@attribute='value']//following-sibling::following-sibling tagname
+
+6.preceding
+------------------
+Syntax:
+-----------------
+//tagname[@attribute='value']//preceding::preceding tagname
+
+
+7.preceding-sibling
+------------------
+Syntax:
+-----------------
+//tagname[@attribute='value']//preceding-sibling::precedingsibling tagname
+
+
+=====================================
+<tbody>------------------ancestor
+<tr>----------------parent
+ 
+         <td>4</td>-------------preceding sibling
+
+          <td>John</td>-------------element
+
+          <td>Robinson</td>--------------following sibling
+
+          <td>jr5527</td>--------------following sibling
+ 
+         <td>--------------following sibling
+              <a href="user.html"><i class="icon-pencil"></i></a>
+              <a role="button" href="#myModal" data-toggle="modal"><i class="icon-remove"></i></a>
+          </td>
+
+        </tr>
+</tbody>
+ ===================================================
+
+ Javascript commands Execution
+ ===================================
+1.Page scroll 
+2.Get the current page title :document.title
+3.Refresh the page :history.go()
+4.Identification of element and perform action
+5.Hidden/ disable element automation possible
+
+To Run any Javascript command using Playwright we use evaluate()
+Syntax:
+----------
+page.evaluate(()=>{
+     javascript command
+})
+
+What evaluate() does
+It executes the function you pass in the page’s context, not in Node.js.
+This means it can access browser objects like:
+document,window,localStorage
+
+Why use evaluate()?
+To read or modify the DOM
+To run custom JavaScript inside the webpage
+To get values not directly exposed by Playwright API
+evaluate() is more flexible when accessing any page-level JavaScript.
+
+TypeCasting in Typescript
+-------------------------
+as HTMLInputElement is called Type Casting. 
+It tells TypeScript that the selected web element is an Input Box 
+so that we can use input-specific properties like .value
+
+An Element is a generic DOM element. 
+TypeScript doesn't know whether it's:
+input
+button
+div
+span
+Since a generic Element doesn't have a value property, this gives an error:
+
+const input=document.querySelector("#twotabsearchtextbox") as HTMLInputElement;
+
+const btn = document.querySelector("#loginBtn") as HTMLButtonElement;
+
+const image = document.querySelector("#logo") as HTMLImageElement;
+
+const link = document.querySelector("#homeLink") as HTMLAnchorElement;
+
+
+1.How to scroll any webpage
+----------------------------
+To Run any custom javascript command then we use evaluate()
+
+ await page.evaluate(()=>{
+        window.scrollTo(0,document.body.scrollHeight);
+    })
+
+2.How to refresh webpage
+await page.evaluate(()=>{
+        window.history.go();
+    })
+
+
+3.how to get the title
+
+document.title;
+
+--------------------------
+4.how to perform operation on element
+
+await page.evaluate(()=>{
+    let ele=document.querySelector("#enabled-example-input") as HTMLInputElement;
+    ele.value="Hello All";
+
+})
+--------------------------------------
+5.how to automate hidden element/disable
+
+await page.evaluate(()=>{
+    let ele=document.querySelector("#enabled-example-input") as HTMLInputElement;
+    ele.value="Hello All";
+
+})
+
+============================================================
+Dropdown Automation
+===========================
+1. Select tag based dropdown
+----------------------------
+Playwright support selectOption() method to work with <select> tag based dropdown
+ 1.select by visibletext
+ 2.select by label
+ 3.select by index
+ 4.select by value
+
+For multiple selection
+---------------------------
+selectOption(['option1','option2']);
+---------------------------------------------------------
+2. Autosuggestion/javascript/Bootstrap drodown
+--------------------------------------------------
+The ways you manually interact with dropdown in the same way you have to automate
+filter()
+===============================================================
+calendar/datepicker
+=================
+no special method
+=================================================================
+filter():Locator: 
+This method narrows existing locator according to the options, for example filters by text.
+It can be chained to filter multiple times.
+    has?: Locator | undefined;
+    hasNot?: Locator;
+    hasNotText?: string | RegExp;
+    hasText?: string | RegExp;
+    visible?: boolean;
+
+===============================================================
+TestData reading technique
+=========================
+1.Json file(No external library required to install)
+
+2.csv file
+Papaparse libary
+
+3.excel file
+SheetJs/ XLSX library
+================================================
+Data Driven Testing
+==========================
+-Executing same set of action with multiple data multiple time 
+-Executing test with multiple set of data
+Scenario:
+login
+register
+
+Playwright Ways
+------------------
+1.Using Array
+2.Using JSON file
+3.Using CSV file
+5.Using Excel file
+
+=====================================================
+Alert/Dialogs automate
+=====================
+-Alerts are appear due to some wrong steps made by user 
+-alerts need to handle but in playwright, Playwright auto dismiss alert
+any simple and confirmation alerts will autio dismiss by playwright
+-We can test it/handle it using page.on() listener
+
+By default, dialogs are auto-dismissed by Playwright, 
+so you don't have to handle them.
+However, you can register a dialog handler before the action
+that triggers the dialog to either dialog.accept() or dialog.dismiss() it.
+
+Types of Dialogs
+=====================
+1.Simple alert (OK)
+2.Confirmation alert (OK and cancel)
+3.Prompt alert (pass the data Ok,cancel)
+
+Whenever we are handling it manually
+-------------------------------------
+dialog events 5 methods
+----------------------
+1.To get the type of alert: type()
+2.To get the text of alert: message()
+3.To simulate action of OK: accept()
+4.To simulate action of cancel button: dismiss()
+5.To simulate propmp: accept(promt)
+
+Authentication popup
+==========================
+Authentication popup where we need to share app credentials
+So in playwright is can store the credentials and pass it along with request
+brower context(store credentials)--->through the page we provide it to app
+
+=========================================================
+WebTable
+============
+Types
+------------
+1.static table
+2.dynamic table
+3.pagination table
+
+Scenarios:
+=============
+1.Number of rows
+2.Number of columns
+3.Number of data
+4.Specific row
+5.Specific column
+6.Specific data
+
+Xpath locator
+-----------------
+=====================================================
+frame/iframe
+==============
+- One html document is embeded into another html document and that section/area/waindow
+is called frame
+-A section/window used to display another html document then is called frame
+
+<iframe> inline frame or <frame>
+
+<iframe> element</iframe>
+
+logic
+-------------
+1. Identify frame/iframe: frameLocator()
+2. from frame identify element
+
+Total frames from the page
+----------------------------
+page.frames():Frame[]
+
+name() & url()
+=====================================================
+Window handling
+==================
+browser--->context--->handle multiple window
+
+//executes in parallel
+let [collect page]=await Promise.all([
+                            start the event
+                            perform action
+                        ])
+
+
+To focus/activate any page
+------------------------
+page.bringToFront()
+=========================================================
+file upload/download
+--------------------------
+1. where type='file'
+setInputFiles():Upload file or multiple files into <input type=file>.
+ For inputs with a [webkitdirectory] attribute, only a single directory path is supported.
+
+
+2.Where type='file' attribute is not there in html code
+then use filechooser event
+
+ page.waitForEvent('filechooser')
+
+3. Download file in current project
+
+ page.waitForEvent('download')
+-------------------------------------------------------------------
+Mouse & keyboard operation
+======================
+-duble click: dblclick()
+-right click: click({button:'right'})
+-mouse hover: hover()
+-drag and drop:
+
+-Keyboard: 
+copy and paste
+press tab button, press enter
+
+-------------------------------------
+shadow dom ele
+--------------------
+Shadow DOM:
+Shadow DOM is a private/isolated DOM inside a web element, used to keep its HTML and CSS separate from the main page.
+
+In simple words:
+Shadow DOM = DOM inside a DOM, with isolation.
+
+what is Shadow DOM?
+----------------------
+Whenever DOM is loaded inside another DOM is called Shadow DOM
+Logic
+----------
+main document-->shadow host-->shadow root-->shadow ele
+
+Which element we can called as shadow element?
+----------------------------------------
+if element is designed with #shadow-root(open) then that element is shadow ele
+
+Parent tag/element for shadow element is shadow root
+Parent tag/element for shadow root is shadow host
+
+Shadow dom elements we can automate only using cssSelector
+
+If element design with #shadow-root(closed) we can not automate this element
+==================================================================
+svg ele
+=============
+SVG stands for Scalable Vector Graphics. 
+It is an XML-based format used to create vector graphics directly inside HTML.
+
+For xpath use special syntax
+--------------------------------
+//*[name()='svg']
+OR
+//*[local-name()='svg']
+
+===========================================================
+Assertion
+-----------------
+- Assertion will help to validate current state of application
+- Playwright support two types of assertion
+1.Hard assertion
+2.Soft assertion
+
+1.Hard Assertion
+---------------------
+-Excution of current test will stop when assertion fail
+-In Playwright we have autowait for assertion is 5sec so after 5sec you will see error
+
+expect(assertion)
+
+
+2.Soft Assertion
+------------------
+- After failure even test will complete execution
+-In Playwright we have autowait for assertion is 5sec so after 5sec you will see error
+
+expect.soft(assertion)
+==============================================
+Playwright codegen,tags,grouping,hooks
+
+screenshots
+video
+
+To maximize Window in Playwright
+-------------------------------
+1.custom function
+2.do project level setup
+In config file 
+ viewport:null,
+    launchOptions:{
+      args:["--start-maximized"]
+    }
+
+Hooks
+-------------
+Hooks for attaching preconditions and postconditions in Playwright
+1.beforeAll
+2.afterAll
+3.beforeEach
+4.afterEach
+
+Framework design
+====================
+
+
+
+Devops
+============
+Jenkins
+Github actions
+
+Cucumber integration
+
+AI Integration
+===================
+AI Agents
+MCP framework
+
+
+
+
+
+
+
+
+
+
+
